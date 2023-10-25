@@ -31,7 +31,7 @@ namespace CS0058_Entity_Framework_Razor.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "{0} không đúng định dạng.")]
             [EmailAddress]
             public string Email { get; set; }
         }
@@ -60,7 +60,7 @@ namespace CS0058_Entity_Framework_Razor.Areas.Identity.Pages.Account
                 await _emailSender.SendEmailAsync(
                     Input.Email,
                     "Reset Password",
-                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    $"Lấy lại mật khẩu bằng cách bấm vào <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>đây</a>.");
 
                 return RedirectToPage("./ForgotPasswordConfirmation");
             }

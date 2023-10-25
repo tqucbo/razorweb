@@ -15,9 +15,14 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Logout">
+        @* <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Logout">
             Đăng xuất
-        </a>
+        </a> *@
+        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout"
+                asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                <button type="submit" class="btn btn-link nav-link text-dark">Đăng xuất</button>
+            </form>
+        
     </li>
 } else {
 <li class="nav-item">

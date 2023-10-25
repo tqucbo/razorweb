@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using RazorEF;
+using System.ComponentModel;
 
 namespace CS0058_Entity_Framework_Razor.Areas.Identity.Pages.Account
 {
@@ -43,15 +44,17 @@ namespace CS0058_Entity_Framework_Razor.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
-            public string Email { get; set; }
+            [Required(ErrorMessage = "{0} không được bỏ trống")]
+            [DisplayName("Tên đăng nhập hoặc Email")]
+            // [EmailAddress]
+            public string UserNameOrEmail { get; set; }
 
             [Required]
             [DataType(DataType.Password)]
+            [Display(Name = "Mật khẩu")]
             public string Password { get; set; }
 
-            [Display(Name = "Remember me?")]
+            [Display(Name = "Nhớ thông tin đăng nhập?")]
             public bool RememberMe { get; set; }
         }
 
@@ -82,11 +85,21 @@ namespace CS0058_Entity_Framework_Razor.Areas.Identity.Pages.Account
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
+                var result = await _signInManager.PasswordSignInAsync(Input.UserNameOrEmail, Input.Password, Input.RememberMe, lockoutOnFailure: true);
+            L1: if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
+                }
+                else
+                {
+                    // Tìm Username theo Email sau đó đăng nhập lại.
+                    var user = await _userManager.FindByEmailAsync(Input.UserNameOrEmail);
+                    if (user != null)
+                    {
+                        result = await _signInManager.PasswordSignInAsync(user.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: true);
+                        goto L1;
+                    }
                 }
                 if (result.RequiresTwoFactor)
                 {
@@ -94,12 +107,12 @@ namespace CS0058_Entity_Framework_Razor.Areas.Identity.Pages.Account
                 }
                 if (result.IsLockedOut)
                 {
-                    _logger.LogWarning("User account locked out.");
+                    _logger.LogWarning("Tài khoản đã bị khoá.");
                     return RedirectToPage("./Lockout");
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Tài khoản không tồn tại hoặc mật khẩu không đúng.");
                     return Page();
                 }
             }
