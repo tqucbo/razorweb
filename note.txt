@@ -1,1 +1,7 @@
 dotnet aspnet-codegenerator razorpage -m RazorEF.Article -dc RazorEF.MyWebContext -outDir Pages/Blog -udl --referenceScriptLibraries
+
+-   Identity : 
+    +   Authentication - Xác định danh tính
+    +   Authorisation - Xác định quyền truy cập
+
+dotnet aspnet-codegenerator identity -dc RazorEF.MyWebContext

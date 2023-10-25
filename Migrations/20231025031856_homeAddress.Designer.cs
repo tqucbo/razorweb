@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RazorEF;
 
 namespace CS0058_Entity_Framework_Razor.Migrations
 {
     [DbContext(typeof(MyWebContext))]
-    partial class MyWebContextModelSnapshot : ModelSnapshot
+    [Migration("20231025031856_homeAddress")]
+    partial class homeAddress
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

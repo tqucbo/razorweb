@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RazorEF;
 
 namespace CS0058_Entity_Framework_Razor.Migrations
 {
     [DbContext(typeof(MyWebContext))]
-    partial class MyWebContextModelSnapshot : ModelSnapshot
+    [Migration("20231025031529_appIdentity")]
+    partial class appIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -168,9 +170,6 @@ namespace CS0058_Entity_Framework_Razor.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<string>("HomeAddress")
-                        .HasColumnType("NVARCHAR");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
