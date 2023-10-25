@@ -1,0 +1,18 @@
+@page "blog/chitietblog/{id:int}"
+@model CS0058_Entity_Framework_Razor.Pages_Blog.DetailsModel
+
+@{
+    ViewData["Title"] = @Model.Article.title;
+}
+
+<h1>@Html.DisplayFor(model => model.Article.title)</h1>
+<p><i>@Html.DisplayFor(model => model.Article.createDate)</i></p>
+<hr>
+@Html.DisplayFor(model => model.Article.content)
+
+
+
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Article.id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

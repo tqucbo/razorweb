@@ -1,0 +1,33 @@
+@page
+@model CS0058_Entity_Framework_Razor.Pages_Blog.DeleteModel
+
+@{
+    ViewData["Title"] = "Xoá";
+}
+
+<h1>Xoá</h1>
+
+<h3>Bạn có chắc muốn xoá bài viết này không?</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Article.title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Article.title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Article.createDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Article.createDate)
+        </dd>
+    </dl>
+
+    <form method="post">
+        <input type="hidden" asp-for="Article.id" />
+        <input type="submit" value="Xoá" class="btn btn-danger" /> |
+        <a asp-page="./Index">Danh sách bài viết</a>
+    </form>
+</div>

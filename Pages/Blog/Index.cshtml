@@ -1,0 +1,65 @@
+@page
+@model CS0058_Entity_Framework_Razor.Pages_Blog.IndexModel
+
+@{
+    ViewData["Title"] = "Danh sách bài viết";
+    int i = 1;
+
+    var pagingModel = new myWeb.Helpers.PagingModel()
+            {
+                currentPage = Model.currentPage,
+                countPages = Model.countPages,
+                generateUrl = (int? p) => Url.Page("/Blog/Index", new { p = p }),
+            };
+}
+
+<h1>Danh sách bài viết</h1>
+
+<form asp-page="./Index" method="get">
+    <label>Tìm kiếm</label>
+    <input name="searchString">
+    <button type="submit">Tìm</button>
+</form>
+
+<p>
+    <a asp-page="Create" class="btn btn-primary">Tạo bài viết mới</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                STT
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Article[0].title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Article[0].createDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Article)
+        {
+            <tr>
+                <td>
+                    @(i++)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.createDate)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.id">Sửa</a> |
+                    <a asp-page="./Details" asp-route-id="@item.id">Xem</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.id">Xoá</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<partial name="_Paging" model="@pagingModel"></partial>
