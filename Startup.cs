@@ -33,13 +33,13 @@ namespace CS0058_Entity_Framework_Razor
             );
 
             // Đăng ký Identity
-            services.AddIdentity<AppUser, IdentityRole>()
-                    .AddEntityFrameworkStores<MyWebContext>()
-                    .AddDefaultTokenProviders();
-
-            // services.AddDefaultIdentity<AppUser>()
+            // services.AddIdentity<AppUser, IdentityRole>()
             //         .AddEntityFrameworkStores<MyWebContext>()
             //         .AddDefaultTokenProviders();
+
+            services.AddDefaultIdentity<AppUser>()
+                    .AddEntityFrameworkStores<MyWebContext>()
+                    .AddDefaultTokenProviders();
 
             // Truy cập IdentityOptions
             services.Configure<IdentityOptions>(options =>

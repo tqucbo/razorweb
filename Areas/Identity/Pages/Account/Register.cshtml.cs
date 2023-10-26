@@ -99,7 +99,7 @@ namespace CS0058_Entity_Framework_Razor.Areas.Identity.Pages.Account
                         protocol: Request.Scheme);
 
                     await _emailSender.SendEmailAsync(Input.Email, "Xác thực tài khoản",
-                        $"Vui lòng xác nhận Email này bằng cáhc <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>nhấn vào đây</a>.");
+                        $"Vui lòng xác nhận Email này bằng cách <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>nhấn vào đây</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {

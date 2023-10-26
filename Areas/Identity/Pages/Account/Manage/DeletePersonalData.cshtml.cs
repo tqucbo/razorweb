@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -32,6 +33,7 @@ namespace CS0058_Entity_Framework_Razor.Areas.Identity.Pages.Account.Manage
         {
             [Required]
             [DataType(DataType.Password)]
+            [DisplayName("Mật khẩu")]
             public string Password { get; set; }
         }
 
@@ -62,7 +64,7 @@ namespace CS0058_Entity_Framework_Razor.Areas.Identity.Pages.Account.Manage
             {
                 if (!await _userManager.CheckPasswordAsync(user, Input.Password))
                 {
-                    ModelState.AddModelError(string.Empty, "Incorrect password.");
+                    ModelState.AddModelError(string.Empty, "Mật khẩu không chính xác.");
                     return Page();
                 }
             }
