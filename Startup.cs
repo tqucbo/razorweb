@@ -33,13 +33,21 @@ namespace CS0058_Entity_Framework_Razor
             );
 
             // Đăng ký Identity
-            // services.AddIdentity<AppUser, IdentityRole>()
+            services.AddIdentity<AppUser, IdentityRole>()
+                    .AddEntityFrameworkStores<MyWebContext>()
+                    .AddDefaultTokenProviders()
+                    .AddDefaultUI();
+
+            // services.AddDefaultIdentity<AppUser>()
             //         .AddEntityFrameworkStores<MyWebContext>()
             //         .AddDefaultTokenProviders();
 
-            services.AddDefaultIdentity<AppUser>()
-                    .AddEntityFrameworkStores<MyWebContext>()
-                    .AddDefaultTokenProviders();
+            services.ConfigureApplicationCookie((o) =>
+            {
+                o.LoginPath = "/login/";
+                o.LogoutPath = "/logout/";
+                o.AccessDeniedPath = "/accessdenied";
+            });
 
             // Truy cập IdentityOptions
             services.Configure<IdentityOptions>(options =>
@@ -72,6 +80,8 @@ namespace CS0058_Entity_Framework_Razor
             var mailSetting = Configuration.GetSection("MailSettings");
             services.Configure<MailSettings>(mailSetting);
             services.AddSingleton<IEmailSender, SendMailService>();
+
+            services.AddSingleton<IdentityErrorDescriber, WebIdentityErrorDescriber>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

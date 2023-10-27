@@ -1,0 +1,33 @@
+﻿@page "/admin/deleterole/{roleid}"
+@model RazorEF.Role.DeleteModel
+@{
+    ViewData["Title"] = "Xoá vai trò";
+    var roleName = @Model.role.Name;
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<partial name="_StatusMessage" model="@Model.StatusMessage"></partial>
+
+<hr>
+
+<div class="row">
+    <div class="col-md-6">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <p>Bạn có chắc chắn xoá Vai trò <strong>@roleName</strong> không?</p>
+
+            <div class="form-group">
+                <input type="submit" value="Đồng ý" class="btn btn-primary" />
+                <a class="btn btn-danger" asp-page="./Index">Danh sách các Vai trò</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

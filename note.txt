@@ -3,5 +3,9 @@ dotnet aspnet-codegenerator razorpage -m RazorEF.Article -dc RazorEF.MyWebContex
 -   Identity : 
     +   Authentication - Xác định danh tính
     +   Authorisation - Xác định quyền truy cập
+        Role-based Authorisation : Cơ chế xác thực quyền theo vai trò
+        .   Role : Admin, Editor, Manager, Member,...
 
 dotnet aspnet-codegenerator identity -dc RazorEF.MyWebContext
+
+Attribute [Authorize] có thể áp dụng cho Controller, Action của Controller, PageModel

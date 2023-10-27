@@ -47,7 +47,7 @@ namespace CS0058_Entity_Framework_Razor.Pages_Blog
             var linqQuery = (from a in _context.articles
                              orderby a.createDate descending
                              select a)
-                             .Skip((currentPage - 1) * 10)
+                             .Skip((currentPage - 1) * ITEMS_PER_PAGE)
                              .Take(ITEMS_PER_PAGE);
 
             if (!string.IsNullOrEmpty(searchString))

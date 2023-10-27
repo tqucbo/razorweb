@@ -1,0 +1,39 @@
+﻿@page "/admin/roles"
+@model RazorEF.Role.IndexModel
+@{
+    ViewData["Title"] = "Danh sách vai trò";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<partial name="_StatusMessage" model="@Model.StatusMessage"></partial>
+
+<div class="mb-2">
+    <a asp-page="./Create" class="btn btn-secondary">Tạo vai trò</a>
+    <a asp-page="../User/Index" class="btn btn-secondary">Quản lý người dùng</a>
+</div>
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            Vai trò
+        </th>
+        <th>
+            Tác vụ
+        </th>
+    </tr>
+    @foreach (var role in Model.roles)
+    {
+        <tr>
+            <td>
+                @role.Name
+            </td>
+            <td>
+                <a class="btn btn-success btn-sm" asp-page="./Edit" asp-route-roleid="@role.Id">Sửa</a>
+                <a class="btn btn-success btn-sm" asp-page="./Delete" asp-route-roleid="@role.Id">Xoá</a>
+            </td>
+        </tr>
+    }
+</table>
